@@ -7,8 +7,6 @@ if(!isset($_SESSION["logged_in"])){
 }
 ?>
 
-<p>You can also use normal tags outside of any PHP blocks.</p>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +40,7 @@ if(!isset($_SESSION["logged_in"])){
     <ul class = "tasklist" id="tasklist"> <!--List-->
     </ul>
 
-    <form class = "form-structure" onsubmit="createTask(event)">
+    <form class = "form-structure" action="./actions/create_action.php" method = "POST">
       <input class ="form-length" type = "text" name = "description" required/>
       <br/>
       <input type = "date" name = "date" required/>

@@ -31,7 +31,7 @@ services:
 
   phpmyadmin:
     container_name: lab-3-phpmyadmin
-    image: arm64v8/phpmyadmin
+    image: phpmyadmin/phpmyadmin
     depends_on:
       - mariadb
     restart: always

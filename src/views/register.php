@@ -16,6 +16,11 @@ session_start();
       <button>Register</button>
 </form>
 
+<h3>Already have an account?</h3>
+<form action = "../actions/goLogin_action.php" method = "GET">
+    <button>Login</button>
+</form>
+
 <?php
 if (isset($_SESSION["error"])) {
     echo "<p>" . $_SESSION["error"] . "</p>";

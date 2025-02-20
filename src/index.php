@@ -71,6 +71,12 @@ if ($conn->connect_error) {
 
         if($row["text"] != ""){
           if($row["done"] == 0){
+
+            $dateUgly = $row["date"];
+            $date = new DateTime($dateUgly);
+            $datePretty = $date->format('m/d/y');
+
+
             echo 
             "<li class = 'task'>
             <div class = 'task-description'>
@@ -82,7 +88,7 @@ if ($conn->connect_error) {
             </div>
             <div class = 'right'>
               <form action = './actions/delete_action.php' method = 'GET'>
-                <span class = 'task-date'>$row[date]</span> 
+                <span class = 'task-date'>$datePretty</span> 
                 <button type='submit' class = 'task-delete material-icon' >delete</button>
                 <input type = 'hidden' id = 'taskID' name = 'taskID' value = '" . $row['id'] . "'>
               </form>
@@ -101,7 +107,7 @@ if ($conn->connect_error) {
             </span>
             <span class = 'right'>
               <form action = './actions/delete_action.php' method = 'GET'>
-                <span class = 'task-date'>$row[date]</span> 
+                <span class = 'task-date'>$datePretty</span> 
                 <button type = 'submit' class = 'task-delete material-icon' >delete</button>
                 <input type = 'hidden' id = 'taskID' name = 'taskID' value = '" . $row['id'] . "'>
               </form> 

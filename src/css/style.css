@@ -68,7 +68,6 @@ nav a {
 }
 
 .task {
-	display: block;
 	width: 100%;
 	box-sizing: border-box;
 	border: solid;
@@ -137,7 +136,7 @@ nav a {
 	color: var(--my-gray);
 }
 
-.task-description.done {
+.line {
 	text-decoration: line-through;
 }
 

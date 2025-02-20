@@ -30,6 +30,15 @@ if ($conn->connect_error) {
   <!-- Add an appropriate title in this tag -->
   <title>Task Manager Website</title>
   <!-- Links to stylesheets -->
+  <style>
+        .line {
+            text-decoration: line-through;
+        }
+
+        .right {
+          text-align: right;
+        }
+    </style>
 </head>
 
 <body>
@@ -39,12 +48,8 @@ if ($conn->connect_error) {
     <a href="https://byu.edu">BYU Home Page</a>
     <a href="https://learningsuite.byu.edu">Grades</a>
     <a href="./actions/logout_action.php">Logout</a>
-    <form action ="./actions/logout_action.php" method = "POST"> 
-      <button>Logout</button>
-    </form>
-   
-
   </nav>
+
     <h1>Task Manager 2.0</h1>
 
     <input type = "checkbox" class = "toggle-switch" id = "SBD" name = "Sort by date"> 
@@ -62,32 +67,49 @@ if ($conn->connect_error) {
 
     $result = $stmt->get_result() or die($stmt->error);
 
-    $id = 1;
-
-      while ($result->num_rows > 0){
-
-        $stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND id = ?") or die($stmt->error);
-        $stmt->bind_param("ii", $_SESSION["id"], $id) or die($stmt->error);
-        $stmt->execute() or die($stmt->error);
-
-        $result = $stmt->get_result() or die($stmt->error);
-        $row = $result->fetch_assoc();
+      while ($row = $result->fetch_assoc()){
 
         if($row["text"] != ""){
-
-        echo "<li class = 'task'> 
-        <form action = './actions/update_action.php' method = 'GET'>
-          <button type='submit' class ='material-icon task-done checkbox-icon'>check</button>
-          <input type = 'hidden'
-        <form> 
-        <span class = 'task-description'>$row[text]</span> 
-        <span class = 'task-date'>$row[date]</span> 
-        <button class = 'task-delete material-icon' >delete</button> 
-        </li>";
+          if($row["done"] == 0){
+            echo 
+            "<li class = 'task'>
+            <div class = 'task-description'>
+              <form action = './actions/update_action.php' method = 'GET'>
+                  <button type='submit' class ='material-icon task-done checkbox-icon'>check</button>
+                  <input type = 'hidden' id = 'taskID' name = 'taskID' value = '" . $row['id'] . "'>
+                  <span class = 'task-checked'>$row[text]</span>
+              </form>
+            </div>
+            <div class = 'right'>
+              <form action = './actions/delete_action.php' method = 'GET'>
+                <span class = 'task-date'>$row[date]</span> 
+                <button type='submit' class = 'task-delete material-icon' >delete</button>
+                <input type = 'hidden' id = 'taskID' name = 'taskID' value = '" . $row['id'] . "'>
+              </form>
+              </div>
+            </li>";
+          }
+          else if($row["done"] == 1 )
+            echo 
+            "<li class = 'task'>
+            <span class = 'task-description'>
+              <form action = './actions/update_action.php' method = 'GET'>
+                  <button type='submit' class ='material-icon task-done checkbox-icon'>check</button>
+                  <input type = 'hidden' id = 'taskID' name = 'taskID' value = '" . $row['id'] . "'>
+                  <span class = 'line'>$row[text]</span>
+              </form>
+            </span>
+            <span class = 'right'>
+              <form action = './actions/delete_action.php' method = 'GET'>
+                <span class = 'task-date'>$row[date]</span> 
+                <button type = 'submit' class = 'task-delete material-icon' >delete</button>
+                <input type = 'hidden' id = 'taskID' name = 'taskID' value = '" . $row['id'] . "'>
+              </form> 
+            </span>
+            </li>";
         }
-
-        $id++;
       }
+
       ?>
     </ul>
 
@@ -98,6 +120,7 @@ if ($conn->connect_error) {
       <br/>
       <button class="pretty-task" >Create Task</button>
     </form>
+
 
 </body>
 

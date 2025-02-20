@@ -14,14 +14,28 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
-if (isset($_SESSION["username"])) {
-	$stmt = $conn->prepare("UPDATE user SET logged_in = 0 WHERE username = ?") or die($conn->error);
-	$stmt->bind_param("s", $_SESSION["username"]) or die($stmt->error);
+$taskID = $_GET["taskID"];
+$setID = 0;
+
+$stmt = $conn->prepare("SELECT * FROM tasks WHERE user_id = ? AND id = ?") or die($stmt->error);
+        $stmt->bind_param("ii", $_SESSION["id"], $taskID) or die($stmt->error);
+        $stmt->execute() or die($stmt->error);
+
+        $result = $stmt->get_result() or die($stmt->error);
+        $row = $result->fetch_assoc();
+
+if ($row["done"] == 0){
+	$setID = 1;
+}
+else if($row["done"] != 0){
+	$setID = 0;
+}
+
+
+$stmt = $conn->prepare("UPDATE tasks SET done = ? WHERE id = ?") or die($conn->error);
+	$stmt->bind_param("ii", $setID, $taskID) or die($stmt->error);
 	$stmt->execute() or die($stmt->error);
-	unset($_SESSION["username"]);
-	}
-	header ("Location: ../views/login.php");
-	session_destroy();
-die();
+
+	header("Location: ../index.php");
 	
 ?>

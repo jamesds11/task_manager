@@ -8,11 +8,11 @@ the corresponding fonts from Google Fonts. */
 to all elements unless they are overridden. */
 :root {
 	/* Change these variables according to your theme */
-	--my-blue: #A5C4D4;
-	--my-mag: #EFE9F4;
-	--my-gray: #242425;
-	--my-check: #006d36;
-	--my-border: #688ab9;
+	--my-blue: #eef6f8;
+	--my-mag: #f8fafc;
+	--my-gray: #172033;
+	--my-check: #0f766e;
+	--my-border: #cbd5e1;
 
 	/* Window background and default font */ 
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -142,7 +142,7 @@ nav a {
 
 .form-structure {
 	border: solid;
-	border: width 3px;
+	border-width: 3px;
 	border-color: var(--my-border);
 	padding: 0.25em;
 }
@@ -231,4 +231,69 @@ input.toggle-switch:checked:before {
 /* Change the background color to green when turned on */
 input.toggle-switch:checked:after {
 	background-color: #16a085;
+}
+
+/* Polished authentication and task-manager layout */
+* { box-sizing: border-box; }
+
+.app-page {
+	box-shadow: 0 1.25rem 3rem rgba(15, 23, 42, 0.12);
+	border-color: #d7e1ea;
+	background: #eef6f8;
+}
+
+.auth-page {
+	min-height: 100vh; max-width: none; margin: 0; border: 0; border-radius: 0;
+	padding: 1.5rem; display: grid; place-items: center;
+	background: linear-gradient(135deg, #688ab9 0%, #a5c4d4 48%, #efe9f4 100%);
+}
+
+.auth-card {
+	width: min(100%, 29rem); padding: 2.5rem; border-radius: 1rem;
+	background: rgba(255, 255, 255, 0.94); box-shadow: 0 1.5rem 3.5rem rgba(36, 36, 37, 0.22);
+}
+
+.eyebrow { margin: 0 0 .35rem; font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #0f766e; }
+.auth-card h1, .page-heading h1 { margin: 0; line-height: 1.1; }
+.auth-intro, .page-heading > p:last-child { margin: .75rem 0 1.75rem; color: #55565c; }
+.auth-form { display: grid; gap: .55rem; }
+.auth-form label { margin-top: .4rem; font-weight: 700; }
+
+input[type="text"], input[type="password"], input[type="date"] {
+	width: 100%; min-height: 2.7rem; padding: .55rem .7rem; border: 1px solid #b8c5d6;
+	border-radius: .45rem; font: inherit; color: var(--my-gray); background: #fff;
+}
+input:focus { outline: 3px solid rgba(13, 148, 136, .25); border-color: #0f766e; }
+
+.primary-button, .secondary-button, .pretty-task {
+	min-height: 2.6rem; padding: .45rem 1rem; border-radius: .45rem; font: inherit; font-weight: 700; cursor: pointer;
+}
+.primary-button { margin-top: .75rem; border: 1px solid #0f766e; color: #fff; background: #0f766e; }
+.primary-button:hover, .pretty-task:hover { background: #115e59; }
+.secondary-button { width: 100%; border: 1px solid #0f766e; color: #0f766e; background: transparent; }
+.secondary-button:hover { background: #edfafa; }
+.auth-switch { margin: 1.75rem 0 .55rem; text-align: center; color: #55565c; }
+.form-error { margin: 1rem 0; padding: .7rem .8rem; border-left: 4px solid #a32d2d; border-radius: .25rem; color: #7b2020; background: #fff0f0; }
+
+.site-nav { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; border: 0; background: #172033; box-shadow: 0 .2rem .65rem rgba(15, 23, 42, .14); }
+.nav-user { color: #e6fffb; font-weight: 700; }
+.site-nav a { border-color: rgba(255, 255, 255, .2); color: #e6fffb; }
+.site-nav a:hover { background: rgba(255, 255, 255, .1); }
+.site-nav a:last-child { margin-left: auto; color: #fff; border-color: #14b8a6; background: #0f766e; }
+.page-heading { padding: 2.25rem 1rem 1.25rem; }
+.page-heading h1 { color: #172033; }
+.task { display: flex; align-items: center; gap: .75rem; border-radius: .55rem; padding: .6rem .75rem; background: #fff; box-shadow: 0 .15rem .35rem rgba(15,23,42,.06); }
+.task-description { width: auto; flex: 1; }
+.right { margin-left: auto; }
+.right form, .task-description form { display: flex; align-items: center; gap: .45rem; }
+.form-structure { padding: 1rem; border-radius: .55rem; background: rgba(255,255,255,.45); }
+.task-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin: 0 1rem 1rem; padding: .75rem 1rem; border-radius: .55rem; background: #dff3f1; }
+.task-controls .pretty-task { margin-left: auto; }
+.pretty-task { border: 1px solid #0f766e; background: #0f766e; color: #fff; }
+
+@media (max-width: 38rem) {
+	body.app-page { margin: 0; border: 0; border-radius: 0; }
+	.site-nav a:last-child { margin-left: 0; }
+	.task { align-items: flex-start; }
+	.task-date { display: none; }
 }

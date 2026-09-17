@@ -39,8 +39,8 @@ if(!password_verify($password, $row["password"])){
 	exit();
 }
 
+session_regenerate_id(true);
 $_SESSION["username"] = $row["username"];
-$_SESSION["password"] = $row["password"];
 $_SESSION["logged_in"] = 1;
 $_SESSION["id"] = $row["id"];
 
